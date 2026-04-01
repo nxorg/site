@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NXORG | xchip.in</title>
+    <style>
+        :root {
+            --green: #00ff00;
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(26, 26, 26, 0.9);
+            --border-color: #00ff00;
+            --text-color: #00ff00;
+            --glow: 0 0 10px #00ff00;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-color);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 2px solid var(--green);
+            padding-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-shadow: var(--glow);
+        }
+
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--green);
+            padding: 30px;
+            position: relative;
+        }
+
+        section h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: inline-block;
+            border-bottom: 2px solid var(--green);
+        }
+
+        .project-card {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed var(--green);
+        }
+
+        .project-card h3 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: var(--green);
+            color: var(--bg-dark);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            box-shadow: var(--glow);
+            transform: translateY(-2px);
+        }
+
+        .links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .links a {
+            color: var(--green);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border 0.3s;
+        }
+
+        .links a:hover {
+            border-bottom: 1px solid var(--green);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 600px) {
+            .logo { font-size: 2rem; }
+            .container { padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <div class="logo">NXORG</div>
+            <div class="tagline">Open Source Tools for Developers</div>
+        </header>
+
+        <section id="about">
+            <h2>> ABOUT</h2>
+            <p>NXORG is an independent open-source collective focused on building high-performance, developer-centric tools. We believe in simplicity, transparency, and the "Matrix" aesthetic.</p>
+        </section>
+
+        <section id="projects">
+            <h2>> PROJECTS</h2>
+            
+            <div class="project-card">
+                <h3>Green Timer & Stopwatch</h3>
+                <p>A sleek #00ff00 themed browser extension for LeetCode tracking and productivity. Sync your progress, analyze your speed, and stay in the flow.</p>
+                <a href="https://github.com/nxorg/green-timer" class="btn">View on GitHub</a>
+            </div>
+
+            <div class="project-card">
+                <h3>Coming Soon...</h3>
+                <p>We are constantly experimenting with new automation and developer productivity tools.</p>
+            </div>
+        </section>
+
+        <div class="links">
+            <a href="https://github.com/nxorg">GitHub</a>
+            <a href="mailto:contact@xchip.in">Contact</a>
+            <a href="https://xchip.in">xchip.in</a>
+        </div>
+
+        <footer>
+            &copy; 2026 NXORG / Manoj Kumar. GPLv3 License.
+        </footer>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%"\'#&_(),.;:?!\\|{}<>[]^~';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
