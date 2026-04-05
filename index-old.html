@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NX-ORG | Engineering Innovation for Everyone</title>
+    <style>
+        :root {
+            --green: #00ff00;
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(26, 26, 26, 0.9);
+            --border-color: #00ff00;
+            --text-color: #00ff00;
+            --glow: 0 0 10px #00ff00;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-color);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--green);
+            padding-bottom: 30px;
+        }
+
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            display: block;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-shadow: var(--glow);
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .parent-brand {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-top: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .parent-brand a {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        section {
+            margin-bottom: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--green);
+            padding: 25px;
+            position: relative;
+        }
+
+        section h2 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: inline-block;
+            border-bottom: 2px solid var(--green);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--green);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .feature-icon { font-size: 1.2em; margin-bottom: 5px; }
+        .feature-title { font-weight: bold; font-size: 0.75rem; color: var(--green); margin-bottom: 2px; text-transform: uppercase; }
+        .feature-desc { font-size: 0.65rem; opacity: 0.7; line-height: 1.2; }
+
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: var(--green);
+            color: var(--bg-dark);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            font-size: 0.75rem;
+        }
+
+        .btn:hover {
+            box-shadow: var(--glow);
+            transform: translateY(-2px);
+            background: #fff;
+        }
+
+        .links {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: var(--green);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .links a:hover { border-bottom: 1px solid var(--green); }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            padding-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .logo { font-size: 2rem; }
+            .container { padding: 20px 15px; }
+            header { margin-bottom: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <img src="public/logo.svg" alt="NX-ORG Logo" class="logo-img">
+            <div class="logo">NX-ORG</div>
+            <div class="tagline">Engineering Innovation for Everyone</div>
+            <div class="parent-brand">
+                A PARENT COMPANY PRODUCT OF <a href="https://www.xchip.in" target="_blank">WWW.XCHIP.IN</a>
+            </div>
+        </header>
+
+        <section id="about">
+            <h2>> ABOUT</h2>
+            <p style="font-size: 0.9rem;">NX-ORG is an independent open-source collective building high-performance, developer-centric tools with a minimalist "Matrix" aesthetic.</p>
+        </section>
+
+        <section id="projects">
+            <h2>> PROJECTS</h2>
+            <div style="padding: 15px; border: 1px dashed var(--green); background: rgba(0, 255, 0, 0.02); position: relative;">
+                <h3 style="color: #fff; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Green Timer & Stopwatch</h3>
+                <p style="font-size: 0.85rem; margin-top: 5px;">A sleek productivity hub for LeetCode. Features auto-detection, multi-timer tracking, customizable statuses, and deep visual analytics.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <div class="feature-title">Tracking</div>
+                        <div class="feature-desc">Timers & auto-detection.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Analytics</div>
+                        <div class="feature-desc">Visual reports & heatmaps.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-title">Notes</div>
+                        <div class="feature-desc">Markdown supported notes.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔔</div>
+                        <div class="feature-title">Smart</div>
+                        <div class="feature-desc">Daily goals & reminders.</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px; display: flex; align-items: center; gap: 8px;">
+                    <div style="font-size: 0.75rem; background: rgba(0, 255, 0, 0.1); border: 1px solid var(--green); padding: 4px 10px; font-weight: bold; color: var(--green);">
+                        📜 LICENSE: <a href="https://github.com/nxorg/green-timer/tree/master?tab=License-1-ov-file" target="_blank" style="color: var(--green); text-decoration: underline;">GPLv3</a>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="https://github.com/nxorg/green-timer" class="btn">Source Code</a>
+                    <a href="#" class="btn" style="background: transparent; color: var(--green); border: 1px solid var(--green);">Install Now</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="links">
+            <a href="https://github.com/nxorg">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+            </a>
+            <a href="mailto:contact@nxorg.xchip.in">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Contact
+            </a>
+            <a href="https://www.xchip.in">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                xchip.in
+            </a>
+        </div>
+
+        <footer>
+            Made with 💚 by Manoj Kumar &copy; 2026. All Original Works Reserved.
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%#&_(),.;:?!\\|{}<>[]^~';
+        const fontSize = 14;
+        const columns = Math.floor(window.innerWidth / fontSize);
+        const drops = Array(columns).fill(1);
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff00'; ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
